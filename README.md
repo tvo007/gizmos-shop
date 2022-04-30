@@ -11,7 +11,6 @@ Current Features:
 -Shopping Cart functionality
 \
 -(Test) Payments using Shopify's Bogus Gateway
-\
 
 Built With:
 \

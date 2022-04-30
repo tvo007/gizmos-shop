@@ -1,14 +1,9 @@
 import React from 'react';
-import smartwatchGreen
-  from '../../assets/images/ecommerce-product-list/smartwatch-green.png';
-import macbookPro17
-  from '../../assets/images/ecommerce-product-list/macbook-pro-17.png';
-import iphone12
-  from '../../assets/images/ecommerce-product-list/iphone-12-pro.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import useStore from '../../lib/store';
 import {v4 as uuidv4} from 'uuid';
+import {formatPrice} from '../../lib/helpers';
 
 const Item = ({name, imgSrc, price, handle, variantId}) => {
   const {addToTempOrder} = useStore ();
@@ -50,8 +45,8 @@ const Item = ({name, imgSrc, price, handle, variantId}) => {
         </a>
       </Link>
       <p className="flex items-center mb-6 xl:mb-10 text-xl text-blue-500 font-heading font-medium tracking-tighter">
-        <span className="mr-2 text-xs">$</span>
-        <span>{price}</span>
+
+        <span>{formatPrice (price)}</span>
       </p>
       <div className="sm:max-w-max cursor-pointer" onClick={() => addToCart ()}>
         <a className="block py-4 px-10 w-full text-lg leading-5 text-white font-medium tracking-tighter font-heading text-center bg-purple-500 hover:bg-purple-600 focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 rounded-xl">
@@ -89,7 +84,6 @@ const BestSellers = ({products}) => {
             const image = product.images.edges[0].node;
             const price = product.priceRange.minVariantPrice.amount;
             const variant = product.variants.edges[0].node;
-
             return (
               <Item
                 key={product.handle}

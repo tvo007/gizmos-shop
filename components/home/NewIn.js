@@ -3,6 +3,7 @@ import React from 'react';
 import womanListening
   from '../../assets/images/ecommerce-newest-products/woman-listening3.jpg';
 import Link from 'next/link';
+import {formatPrice} from '../../lib/helpers';
 
 const Item = ({imgSrc, name, price, handle}) => {
   return (
@@ -25,8 +26,8 @@ const Item = ({imgSrc, name, price, handle}) => {
         </a>
       </Link>
       <p className="flex items-center text-xl text-blue-500 font-heading font-medium tracking-tighter">
-        <span className="mr-2 text-xs">$</span>
-        <span>{price}</span>
+
+        <span>{formatPrice (price)}</span>
       </p>
     </div>
   );

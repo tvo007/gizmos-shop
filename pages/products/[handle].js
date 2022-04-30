@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from '../../components/shared/Layout';
 import Image from 'next/image';
 import {callStorefront} from '../../lib/api';
@@ -7,8 +7,10 @@ import useStore from '../../lib/store';
 import {v4 as uuidv4} from 'uuid';
 import Dinero from 'dinero.js';
 import {Disclosure} from '@headlessui/react';
+import {serialize} from 'next-mdx-remote/serialize';
+import {MDXRemote} from 'next-mdx-remote';
 
-const Product = ({product}) => {
+const Product = ({product, source}) => {
   const productHandle = product.handle;
   const productName = product.title;
   const image = product.images.edges[0].node;
@@ -18,17 +20,37 @@ const Product = ({product}) => {
     precision: 0,
   }).toFormat ('$0,0.00');
 
-  const {addToTempOrder, tempOrder, setInitialTempOrder} = useStore ();
+  const {
+    addToTempOrder,
+    tempOrder,
+    setInitialTempOrder,
+    updateItem,
+  } = useStore ();
+
+  const [quantity, setQuantity] = useState (1);
+
+  const handleChange = e => {
+    setQuantity (e.target.value);
+  };
 
   const addToCart = () => {
+    /**
+     * todo:
+     * check to see item if item is in bag
+     * if so, update qty
+     * if not create new orderarray
+     */
+
     addToTempOrder ({
       product_handle: productHandle,
       product_name: productName,
       price: price,
-      quantity: '1',
+      quantity: quantity,
       product_img: image.url,
       id: uuidv4 (),
     });
+
+    setQuantity (1);
   };
 
   const clearOrder = () => {
@@ -82,6 +104,8 @@ const Product = ({product}) => {
                   className="w-24 px-3 py-2 text-center bg-white border-2 border-blue-500 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
                   type="text"
                   placeholder="1"
+                  onChange={handleChange}
+                  value={quantity}
                 />
               </div>
               <div className="flex flex-wrap -mx-2 mb-12">
@@ -121,32 +145,6 @@ const Product = ({product}) => {
                 <Disclosure>
                   <Disclosure.Button className="flex w-full pl-6 lg:pl-12 pr-6 py-4 mb-4 justify-between items-center leading-7 rounded-2xl border-2 border-blueGray-200 hover:border-blueGray-300">
                     <h3 className="text-lg font-heading font-medium">
-                      Shipping &amp; returns
-                    </h3>
-                    <span>
-                      <svg
-                        width="12"
-                        height="8"
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10.4594 0.289848C10.8128 -0.096616 11.3841 -0.096616 11.7349 0.289848C12.0871 0.676312 12.0897 1.30071 11.7349 1.68718L6.63794 7.21015C6.28579 7.59662 5.71584 7.59662 5.36108 7.21015L0.264109 1.68718C-0.0880363 1.30215 -0.0880363 0.676312 0.264109 0.289848C0.617558 -0.096616 1.18882 -0.096616 1.53966 0.289848L6.00147 4.81927L10.4594 0.289848Z"
-                          fill="black"
-                        />
-                      </svg>
-                    </span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500">
-                    <p className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] pb-[1rem]">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam tempore sequi recusandae praesentium illum fugiat maxime, iure sint, in, sunt asperiores omnis maiores aperiam odit corporis provident doloribus veritatis magni!
-                    </p>
-                  </Disclosure.Panel>
-                </Disclosure>
-                <Disclosure>
-                  <Disclosure.Button className="flex w-full pl-6 lg:pl-12 pr-6 py-4 justify-between items-center leading-7 rounded-2xl border-2 border-blueGray-200 hover:border-blueGray-300">
-                    <h3 className="text-lg font-heading font-medium">
                       Product details
                     </h3>
                     <span>
@@ -165,6 +163,42 @@ const Product = ({product}) => {
                     </span>
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500">
+                    <div className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] pb-[1rem] prose">
+                      <MDXRemote {...source} />
+                    </div>
+
+                  </Disclosure.Panel>
+                </Disclosure>
+                <Disclosure>
+                  <Disclosure.Button className="flex w-full pl-6 lg:pl-12 pr-6 py-4 justify-between items-center leading-7 rounded-2xl border-2 border-blueGray-200 hover:border-blueGray-300">
+                    <h3 className="text-lg font-heading font-medium">
+                      Shipping &amp; returns
+                    </h3>
+                    <span>
+                      <svg
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10.4594 0.289848C10.8128 -0.096616 11.3841 -0.096616 11.7349 0.289848C12.0871 0.676312 12.0897 1.30071 11.7349 1.68718L6.63794 7.21015C6.28579 7.59662 5.71584 7.59662 5.36108 7.21015L0.264109 1.68718C-0.0880363 1.30215 -0.0880363 0.676312 0.264109 0.289848C0.617558 -0.096616 1.18882 -0.096616 1.53966 0.289848L6.00147 4.81927L10.4594 0.289848Z"
+                          fill="black"
+                        />
+                      </svg>
+                    </span>
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="text-gray-500">
+                    <p className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] py-[1rem]">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam tempore sequi recusandae praesentium illum fugiat maxime, iure sint, in, sunt asperiores omnis maiores aperiam odit corporis provident doloribus veritatis magni!
+                    </p>
+                    <p className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] py-[1rem]">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam tempore sequi recusandae praesentium illum fugiat maxime, iure sint, in, sunt asperiores omnis maiores aperiam odit corporis provident doloribus veritatis magni!
+                    </p>
+                    <p className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] py-[1rem]">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam tempore sequi recusandae praesentium illum fugiat maxime, iure sint, in, sunt asperiores omnis maiores aperiam odit corporis provident doloribus veritatis magni!
+                    </p>
                     <p className="pl-6 lg:pl-12 xl:pl-12 pr-[2rem] py-[1rem]">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam tempore sequi recusandae praesentium illum fugiat maxime, iure sint, in, sunt asperiores omnis maiores aperiam odit corporis provident doloribus veritatis magni!
                     </p>
@@ -202,10 +236,13 @@ export async function getStaticPaths () {
 
 export async function getStaticProps({params}) {
   const {data} = await callStorefront (SingleProduct, {handle: params.handle});
-
+  //processing markdown from shopify
+  const source = data.product.descriptionHtml;
+  const mdxSource = await serialize (source);
   return {
     props: {
       product: data.product,
+      source: mdxSource, //converted markdown from shopify
     },
   };
 }

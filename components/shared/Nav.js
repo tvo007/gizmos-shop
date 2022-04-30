@@ -8,6 +8,13 @@ import useStore from '../../lib/store';
 const Nav = ({handleDrawerOpen}) => {
   const {tempOrder} = useStore ();
 
+  const calcTotalItems = arr => {
+    const sum = arr
+      .map (item => parseInt (item.quantity))
+      .reduce ((a, b) => a + b, 0);
+    return sum;
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState (false);
 
   return (
@@ -79,7 +86,7 @@ const Nav = ({handleDrawerOpen}) => {
           <Link href="/cart">
             <a className="relative inline-block text-gray-400 hover:text-gray-500">
               <div className="absolute bottom-0 right-0 flex items-center justify-center -mb-4 -mr-4 w-6 h-6 text-sm text-white bg-blue-500 rounded-full">
-                {tempOrder.length || 0}
+                {calcTotalItems (tempOrder) || 0}
               </div>
               <svg
                 width="21"

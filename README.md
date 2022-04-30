@@ -12,7 +12,6 @@ Current Features:
 \
 -(Test) Payments using Shopify's Bogus Gateway
 \
-\
 
 Built With:
 \

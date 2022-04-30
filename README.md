@@ -7,13 +7,21 @@ A NextJs app leveraging Shopify's Storefront API to simulate an ecommerce web sh
 Current Features:
 \
 -Dynamic products listing
+\
 -Shopping Cart functionality
+\
 -(Test) Payments using Shopify's Bogus Gateway
+\
+\
 
 Built With:
+\
 NextJs
+\
 TailwindCss
+\
 Zustand
+\
 Shopify Storefront API as a headless backend
 
 

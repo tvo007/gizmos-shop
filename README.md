@@ -5,6 +5,7 @@ Gizmos Ecommerce Shop
 A NextJs app leveraging Shopify's Storefront API to simulate an ecommerce web shop.
 
 Current Features:
+\
 -Dynamic products listing
 -Shopping Cart functionality
 -(Test) Payments using Shopify's Bogus Gateway

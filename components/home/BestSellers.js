@@ -4,6 +4,7 @@ import Link from 'next/link';
 import useStore from '../../lib/store';
 import {v4 as uuidv4} from 'uuid';
 import {formatPrice} from '../../lib/helpers';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Item = ({name, imgSrc, price, handle, variantId}) => {
   const {addToTempOrder} = useStore ();

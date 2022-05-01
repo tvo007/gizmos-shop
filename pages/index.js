@@ -5,7 +5,6 @@ import NewIn from '../components/home/NewIn';
 import BestSellers from '../components/home/BestSellers';
 import PaymentIcons from '../components/home/PaymentIcons';
 import Layout from '../components/shared/Layout';
-import SwiperTest from '../components/home/SwiperTest';
 
 export default function Home({products}) {
   // const { data } = useQuery('products', callStorefront, { initialData: products })
@@ -26,7 +25,6 @@ export default function Home({products}) {
         <BestSellers products={products} />
       </section>
       <section>
-        <SwiperTest />
         <PaymentIcons />
       </section>
     </Layout>

@@ -15,6 +15,7 @@ const Product = ({product, source}) => {
   const productName = product.title;
   const image = product.images.edges[0].node;
   const price = product.priceRange.minVariantPrice.amount;
+  const variant = product.variants.edges[0].node;
   const formattedPrice = Dinero ({
     amount: parseInt (price),
     precision: 0,
@@ -47,21 +48,24 @@ const Product = ({product, source}) => {
       price: price,
       quantity: quantity,
       product_img: image.url,
+      variant_id: variant.id,
       id: uuidv4 (),
     });
 
     setQuantity (1);
   };
 
-  const clearOrder = () => {
-    setInitialTempOrder ([]);
-  };
+  // const clearOrder = () => {
+  //   setInitialTempOrder ([]);
+  // };
 
-  console.log (image.url);
-  console.log (productName);
-  console.log (price);
+  // console.log (image.url);
+  // console.log (productName);
+  // console.log (price);
 
-  console.log (product);
+  // console.log (product);
+
+  // console.log (tempOrder);
 
   return (
     <Layout>

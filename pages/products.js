@@ -65,13 +65,11 @@ const Products = ({products}) => {
      * 
     */
 
-  const {tempOrder} = useStore ();
-
   // const clearOrder = () => {
   //   setInitialTempOrder ([]);
   // };
 
-  console.log (tempOrder);
+  // console.log (tempOrder);
 
   return (
     <Layout>

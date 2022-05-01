@@ -9,20 +9,21 @@ import 'swiper/css';
 import {useState} from 'react';
 
 const Item = ({name, imgSrc, price, handle, variantId}) => {
-  const {addToTempOrder} = useStore ();
+  const {addToTempOrder, tempOrder} = useStore ();
 
   const addToCart = () => {
     addToTempOrder ({
       product_handle: handle,
       product_name: name,
       price: price,
-      quantity: '1',
+      quantity: 1,
       product_img: imgSrc,
       variant_id: variantId,
       id: uuidv4 (),
     });
   };
 
+  // console.log (tempOrder);
   return (
     <div className="xl:block p-3 xl:flex-1 
       lg:flex lg:flex-col 

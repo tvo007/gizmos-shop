@@ -11,7 +11,7 @@ export default function Home({products}) {
 
   // console.log ({data});
 
-  console.log (products);
+  // console.log (products);
 
   return (
     <Layout>

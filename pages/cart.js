@@ -11,7 +11,7 @@ import {callStorefront} from '../lib/api';
 const Cart = () => {
   const {tempOrder} = useStore ();
   // console.log (sumOrders (tempOrder));
-  console.log (tempOrder);
+  // console.log (tempOrder);
   // const formattedShipping = Dinero ({
   //   amount: shippingCost,
   //   precision: 0,
@@ -41,6 +41,7 @@ const Cart = () => {
     // if (data) {
     //   console.log (data);
     // }
+    // console.log(webUrl)
   };
 
   return (
@@ -140,3 +141,5 @@ const Cart = () => {
 };
 
 export default Cart;
+
+

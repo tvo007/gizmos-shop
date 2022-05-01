@@ -88,14 +88,12 @@ const BestSellers = ({products}) => {
         </button>
 
         <Swiper
-          className="flex flex-wrap items-start -mx-3 lg:-mx-0 lg:w-full"
+          className="relative flex flex-wrap items-start -mx-3 lg:-mx-0 lg:w-full"
           onInit={e => {
             setSwiper (e);
           }}
           spaceBetween={50}
           slidesPerView={2}
-          onSlideChange={() => console.log ('slide change')}
-          onSwiper={swiper => console.log (swiper)}
           loop={true}
         >
 

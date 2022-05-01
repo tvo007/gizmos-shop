@@ -4,10 +4,14 @@ import womanListening
   from '../../assets/images/ecommerce-newest-products/woman-listening3.jpg';
 import Link from 'next/link';
 import {formatPrice} from '../../lib/helpers';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/css';
+import {useState} from 'react';
+import {Fragment} from 'react';
 
 const Item = ({imgSrc, name, price, handle}) => {
   return (
-    <div className="flex-shrink-0 w-full lg:w-1/2 p-3 pr-10 sm:pr-4 xl:pr-3">
+    <Fragment>
       <div className="relative p-10 xl:py-20 mb-5 xl:mb-8 rounded-3xl h-[45vh]">
         <a className="flex items-center">
           <Image
@@ -26,14 +30,14 @@ const Item = ({imgSrc, name, price, handle}) => {
         </a>
       </Link>
       <p className="flex items-center text-xl text-blue-500 font-heading font-medium tracking-tighter">
-
         <span>{formatPrice (price)}</span>
       </p>
-    </div>
+    </Fragment>
   );
 };
 
 const NewIn = ({products}) => {
+  const [swiper, setSwiper] = useState ({});
   return (
     <div className="flex items-center flex-wrap">
       <div className="w-full sm:pr-4 xl:pr-20 sm:w-1/2 xl:w-5/12">
@@ -46,62 +50,38 @@ const NewIn = ({products}) => {
           <h2 className="mb-5 xl:mb-24 text-9xl xl:text-10xl font-heading font-medium">
             New in
           </h2>
-          <div className="relative flex -mx-3 mb-5 sm:mb-0">
+          <Swiper
+            className="relative flex -mx-3 mb-5 sm:mb-0"
+            onInit={e => {
+              setSwiper (e);
+            }}
+            slidesPerView={2}
+            loop={true}
+          >
             {products.edges.map (item => {
               const product = item.node;
               const image = product.images.edges[0].node;
               const price = product.priceRange.minVariantPrice.amount;
 
               return (
-                <Item
+                <SwiperSlide
                   key={product.handle}
-                  handle={product.handle}
-                  imgSrc={image.url}
-                  name={product.title}
-                  price={price}
-                />
+                  className="flex-shrink-0 w-full lg:w-1/2 p-3 pr-10 sm:pr-4 xl:pr-3"
+                >
+                  <Item
+                    handle={product.handle}
+                    imgSrc={image.url}
+                    name={product.title}
+                    price={price}
+                  />
+                </SwiperSlide>
               );
             })}
-
-            {/* <Item
-              imgSrc={headphonesSony}
-              name={'Headphones SONY 1l X-O'}
-              price="44.90"
-            />
-            <Item
-              imgSrc={smartwatchGreen}
-              name={'Smartwatch Homme Watch 19'}
-              price="120.90"
-            />
-
-            <Item
-              imgSrc={macbookPro17}
-              name={'MacBook Pro 17’’'}
-              price={'2090.59'}
-            /> */}
-
-            {/* <div className="xl:ml-20 flex-shrink-0 w-full lg:w-1/2 p-3">
-              <div className="p-10 xl:py-20 mb-5 xl:mb-8 bg-white rounded-3xl">
-                <a className="flex items-center">
-                  <Image
-                    className="mx-auto h-56 object-cover"
-                    src={macbookPro17}
-                    alt=""
-                  />
-                </a>
-              </div>
-              <a>
-                <p className="mb-4 text-xl leading-8 font-heading font-medium hover:underline">
-                  MacBook Pro 17’’
-                </p>
-              </a>
-              <p className="flex items-center text-xl text-blue-500 font-heading font-medium tracking-tighter">
-                <span className="mr-2 text-xs">$</span>
-                <span>2090.59</span>
-              </p>
-            </div> */}
-            <div className="absolute right-0 bottom-1/2 transform xl:translate-x-1/2 -translate-y-1/2">
-              <a className="w-18 h-14 flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl">
+            <div className="absolute right-0 bottom-1/2 transform xl:translate-x-1/2 -translate-y-1/2 z-50">
+              <button
+                className="w-18 h-14 flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
+                onClick={() => swiper.slideNext ()}
+              >
                 <svg
                   className="my-px"
                   width="8"
@@ -115,9 +95,9 @@ const NewIn = ({products}) => {
                     fill="white"
                   />
                 </svg>
-              </a>
+              </button>
             </div>
-          </div>
+          </Swiper>
         </div>
       </div>
     </div>

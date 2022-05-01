@@ -85,7 +85,7 @@ const Products = ({products}) => {
             <h2>Clear order</h2>
           </button> */}
           <div className="flex items-center">
-            <a className="hidden md:block pr-6 hover:text-darkBlueGray-400">
+            {/* <a className="hidden md:block pr-6 hover:text-darkBlueGray-400">
               <svg
                 width="8"
                 height="12"
@@ -98,7 +98,7 @@ const Products = ({products}) => {
                   fill="currentColor"
                 />
               </svg>
-            </a>
+            </a> */}
             <div className="flex flex-wrap items-start -mx-3 lg:-mx-0 lg:w-full">
               {products.edges.map (item => {
                 const product = item.node;
@@ -128,7 +128,7 @@ const Products = ({products}) => {
               })}
 
             </div>
-            <a className="hidden md:block pl-6 hover:text-darkBlueGray-400">
+            {/* <a className="hidden md:block pl-6 hover:text-darkBlueGray-400">
               <svg
                 width="8"
                 height="12"
@@ -141,9 +141,9 @@ const Products = ({products}) => {
                   fill="currentColor"
                 />
               </svg>
-            </a>
+            </a> */}
           </div>
-          <div className="md:hidden flex justify-center mt-12">
+          {/* <div className="md:hidden flex justify-center mt-12">
             <a className="mx-14 hover:text-darkBlueGray-400">
               <svg
                 width="8"
@@ -172,7 +172,7 @@ const Products = ({products}) => {
                 />
               </svg>
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
     </Layout>

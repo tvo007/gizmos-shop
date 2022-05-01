@@ -8,6 +8,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import {useState} from 'react';
 import {Fragment} from 'react';
+import useMediaQuery from '../../lib/hooks/useMediaQuery';
 
 const Item = ({imgSrc, name, price, handle}) => {
   return (
@@ -37,6 +38,8 @@ const Item = ({imgSrc, name, price, handle}) => {
 };
 
 const NewIn = ({products}) => {
+  const isMobile = useMediaQuery ('(max-width: 1024px)');
+
   const [swiper, setSwiper] = useState ({});
   return (
     <div className="flex items-center flex-wrap">
@@ -46,7 +49,7 @@ const NewIn = ({products}) => {
         </div>
       </div>
       <div className="w-full sm:w-1/2 py-24 2xl:py-0">
-        <div className="relative container px-4 mx-auto z-10">
+        <div className="relative container px-4 mx-auto z-10 w-full">
           <h2 className="mb-5 xl:mb-24 text-9xl xl:text-10xl font-heading font-medium">
             New in
           </h2>
@@ -55,7 +58,7 @@ const NewIn = ({products}) => {
             onInit={e => {
               setSwiper (e);
             }}
-            slidesPerView={2}
+            slidesPerView={isMobile ? 1 : 2}
             loop={true}
           >
             {products.edges.map (item => {
@@ -77,27 +80,28 @@ const NewIn = ({products}) => {
                 </SwiperSlide>
               );
             })}
-            <div className="absolute right-0 bottom-1/2 transform xl:translate-x-1/2 -translate-y-1/2 z-50">
-              <button
-                className="w-18 h-14 flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
-                onClick={() => swiper.slideNext ()}
-              >
-                <svg
-                  className="my-px"
-                  width="8"
-                  height="12"
-                  viewBox="0 0 8 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0.289849 1.54064C-0.0966146 1.18719 -0.0966145 0.615928 0.28985 0.265087C0.676314 -0.087058 1.30071 -0.0896662 1.68718 0.265087L7.21015 5.36206C7.59662 5.71421 7.59662 6.28416 7.21015 6.63892L1.68718 11.7359C1.30215 12.088 0.676312 12.088 0.289848 11.7359C-0.0966159 11.3824 -0.0966159 10.8112 0.289848 10.4603L4.81927 5.99853L0.289849 1.54064Z"
-                    fill="white"
-                  />
-                </svg>
-              </button>
-            </div>
+
           </Swiper>
+          <div className="absolute right-0 bottom-1/2 transform xl:translate-x-1/2 -translate-y-1/2 z-50 w-[6rem] xl:w-[8rem]">
+            <button
+              className="w-[5rem] h-14 flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
+              onClick={() => swiper.slideNext ()}
+            >
+              <svg
+                className="my-px"
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.289849 1.54064C-0.0966146 1.18719 -0.0966145 0.615928 0.28985 0.265087C0.676314 -0.087058 1.30071 -0.0896662 1.68718 0.265087L7.21015 5.36206C7.59662 5.71421 7.59662 6.28416 7.21015 6.63892L1.68718 11.7359C1.30215 12.088 0.676312 12.088 0.289848 11.7359C-0.0966159 11.3824 -0.0966159 10.8112 0.289848 10.4603L4.81927 5.99853L0.289849 1.54064Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>

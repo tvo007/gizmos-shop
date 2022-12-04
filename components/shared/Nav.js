@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
-
 import { BsPersonCircle } from "react-icons/bs";
 import Link from "next/link";
 import useStore from "../../lib/store";

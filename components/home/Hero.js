@@ -1,8 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import bgPlaceholder
-  from '../../assets/images/ecommerce-headers/bg-placeholder.png';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import bgPlaceholder from "../../assets/images/ecommerce-headers/bg-placeholder.png";
 
 const Hero = () => {
   return (
@@ -16,9 +15,9 @@ const Hero = () => {
         />
         <div className="relative container px-4 mx-auto">
           <div className="w-full md:w-2/3 lg:w-1/2 mb-24 xl:mb-0">
-            <span className="block mb-9 font-medium tracking-widest uppercase text-xs text-gray-200">
-              Get 20% off card
-            </span>
+            {/* <span className="block mb-9 font-medium tracking-widest uppercase text-xs text-gray-200">
+              Get 20% off your first purchase!
+            </span> */}
             <h1 className="mb-16 font-heading font-medium text-white text-9xl md:text-10xl xl:text-13xl leading-tight">
               The ultimate multi tool option
             </h1>

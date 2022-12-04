@@ -1,28 +1,38 @@
-import Image from 'next/image';
-import React, {Fragment, useState} from 'react';
-import gizmosLogo from '../../assets/gizmosLogo.jpg';
-import {BsPersonCircle} from 'react-icons/bs';
-import Link from 'next/link';
-import useStore from '../../lib/store';
+import Image from "next/image";
+import React, { Fragment, useState } from "react";
 
-const Nav = ({handleDrawerOpen}) => {
-  const {tempOrder} = useStore ();
+import { BsPersonCircle } from "react-icons/bs";
+import Link from "next/link";
+import useStore from "../../lib/store";
 
-  const calcTotalItems = arr => {
+const Nav = ({ handleDrawerOpen }) => {
+  const { tempOrder } = useStore();
+
+  const calcTotalItems = (arr) => {
     const sum = arr
-      .map (item => parseInt (item.quantity))
-      .reduce ((a, b) => a + b, 0);
+      .map((item) => parseInt(item.quantity))
+      .reduce((a, b) => a + b, 0);
     return sum;
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState (false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <nav className="flex justify-between">
-      <div className="flex w-full items-center py-6">
+      <div className="flex w-full items-center py-4">
         <Link href="/">
           <a>
-            <Image className="h-12" src={gizmosLogo} alt="" />
+            <div className="w-[12rem]">
+              <Image
+                src={
+                  "https://res.cloudinary.com/ddj5orpun/image/upload/c_scale,e_bgremoval,w_640/v1670118309/gizmos-branding.png"
+                }
+                width={640}
+                height={250}
+                objectFit="cover"
+              />
+            </div>
+            {/* <Image className="h-12" src={gizmosLogo} alt="" /> */}
           </a>
         </Link>
         <ul className="hidden xl:flex px-4 ml-20 2xl:ml-40 mr-auto">
@@ -50,9 +60,7 @@ const Nav = ({handleDrawerOpen}) => {
             </div>
           </li>
           <li className="mr-16">
-            <a className="font-medium hover:text-darkBlueGray-400">
-              Our Story
-            </a>
+            <a className="font-medium hover:text-darkBlueGray-400">Our Story</a>
           </li>
 
           <li>
@@ -86,7 +94,7 @@ const Nav = ({handleDrawerOpen}) => {
           <Link href="/cart">
             <a className="relative inline-block text-gray-400 hover:text-gray-500">
               <div className="absolute bottom-0 right-0 flex items-center justify-center -mb-4 -mr-4 w-6 h-6 text-sm text-white bg-blue-500 rounded-full">
-                {calcTotalItems (tempOrder) || 0}
+                {calcTotalItems(tempOrder) || 0}
               </div>
               <svg
                 width="21"
@@ -115,31 +123,32 @@ const Nav = ({handleDrawerOpen}) => {
           <div className="flex-shrink-0 w-px h-12 bg-gray-100 ml-9 mr-10" />
 
           <a className="flex items-center text-darkBlueGray-400 hover:text-darkBlueGray-500">
-            {isLoggedIn
-              ? <Fragment>
-                  <span className="font-medium">Name</span>
-                  {/* <Image className="ml-5" src={BsPersonCircle} alt="" /> */}
-                  <BsPersonCircle className="ml-5" size={30} />
-                  <svg
-                    className="ml-4"
-                    width="8"
-                    height="5"
-                    viewBox="0 0 8 5"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.97291 0.193232C7.20854 -0.0644107 7.58938 -0.0644107 7.82328 0.193232C8.05804 0.450875 8.05978 0.867141 7.82328 1.12478L4.42529 4.80677C4.19053 5.06441 3.81056 5.06441 3.57406 4.80677L0.176073 1.12478C-0.0586909 0.868102 -0.0586909 0.450875 0.176073 0.193232C0.411706 -0.0644107 0.792544 -0.0644107 1.02644 0.193232L4.00098 3.21284L6.97291 0.193232Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </Fragment>
-              : <span className="font-medium">Login</span>}
+            {isLoggedIn ? (
+              <Fragment>
+                <span className="font-medium">Name</span>
+                {/* <Image className="ml-5" src={BsPersonCircle} alt="" /> */}
+                <BsPersonCircle className="ml-5" size={30} />
+                <svg
+                  className="ml-4"
+                  width="8"
+                  height="5"
+                  viewBox="0 0 8 5"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.97291 0.193232C7.20854 -0.0644107 7.58938 -0.0644107 7.82328 0.193232C8.05804 0.450875 8.05978 0.867141 7.82328 1.12478L4.42529 4.80677C4.19053 5.06441 3.81056 5.06441 3.57406 4.80677L0.176073 1.12478C-0.0586909 0.868102 -0.0586909 0.450875 0.176073 0.193232C0.411706 -0.0644107 0.792544 -0.0644107 1.02644 0.193232L4.00098 3.21284L6.97291 0.193232Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </Fragment>
+            ) : (
+              <span className="font-medium">Login</span>
+            )}
           </a>
         </div>
 
         {/**login icons */}
-
       </div>
       {/**burger nav */}
       <div className="flex flex-row gap-x-8">
